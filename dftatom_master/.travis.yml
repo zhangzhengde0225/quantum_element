@@ -1,0 +1,37 @@
+language: python
+python:
+  - 3.7
+env:
+  - TEST_MANUAL="yes"
+  - BUILD_TYPE="Debug"
+  - BUILD_TYPE="Debug" WITH_LAPACK="yes"
+  - BUILD_TYPE="Release"
+  - BUILD_TYPE="Debug" WITH_PYTHON="yes"
+  - BUILD_TYPE="Release" WITH_PYTHON="yes"
+matrix:
+  include:
+    - python: 2.7
+      env:
+        - BUILD_TYPE="Debug" WITH_PYTHON="yes"
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install gfortran
+  - if [[ "${WITH_LAPACK}" == "yes" ]]; then
+        sudo apt-get install liblapack-dev;
+    fi
+install:
+  - if [[ "${WITH_PYTHON}" == "yes" ]]; then
+        pip install cython numpy pytest;
+    fi
+before_script:
+  - if [[ "${TEST_MANUAL}" == "yes" ]]; then
+      make -f Makefile.manual;
+    else
+      cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_INSTALL_PREFIX="$VIRTUAL_ENV" -DWITH_PYTHON=${WITH_PYTHON} -DWITH_LAPACK=${WITH_LAPACK} -DCMAKE_INSTALL_RPATH:STRING="${VIRTUAL_ENV}/lib" -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON .;
+      make;
+      make install;
+    fi
+script:
+  - bin/test_travis.sh
+notifications:
+  email: false
