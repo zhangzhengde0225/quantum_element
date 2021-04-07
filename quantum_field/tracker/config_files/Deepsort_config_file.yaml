@@ -1,0 +1,4 @@
+
+weights: "/home/zzd/weights/deepsort_ckpt.t7"
+use_cuda: False
+

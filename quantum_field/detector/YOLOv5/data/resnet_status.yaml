@@ -1,0 +1,15 @@
+# __author__: zhangzhengde@mail.sjtu.edu.cn
+# datasets of target status, stored format
+# root_path
+# ----fold1
+#  |---train
+#  |---test
+#  |---val
+#  |
+# ----fold2
+# ...
+
+root_path: /home/zzd/datasets/pose/features
+
+statuses: ['walking', 'standing', 'sitting', 'jumping', 'lying', 'fallen', 'squating', 'fighting', 'unknown']
+

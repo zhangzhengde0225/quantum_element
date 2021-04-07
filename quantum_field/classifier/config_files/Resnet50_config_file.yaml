@@ -1,0 +1,10 @@
+
+device: '0'
+consecutive_frame: 5
+feature_size: [192, 128]  # h, w, 单个人的大小
+keypoints_radius: 3
+skeleton_thickness: 2
+use_raw_image_rather_grayscale_as_convas: False
+num_classes: 7
+weights_path: '/home/zzd/PycharmProject/pose/behavior/classifier/ResNet50/runs/42EPexp/weights/best.pt'
+batch_size: 8
